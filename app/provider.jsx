@@ -7,7 +7,7 @@ const Provider = ({children}) => {
     <div>
       <NextThemesProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="dark"
         enableSystem
         disableTransitionOnChange
       >
