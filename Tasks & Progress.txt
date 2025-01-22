@@ -1,0 +1,6 @@
+- Initial setup of the Application 
+    - Next js setup
+    - sadcn integration
+    - dark mode integration
+    - git repositry creation and setup 
+    
