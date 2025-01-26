@@ -17,4 +17,10 @@
     - google Oauth2 id generation and setup.
 
 - Backend using Convex
+    - convex integration
+    - ConvexClientProvider setup
+    - makeing user model
+    - schema creation 
+    - function creation
+
 

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
+import ConvexClientProvider from "./ConvexClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +23,12 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body 
       >
+        <ConvexClientProvider>
         <Provider>
           {children}
 
         </Provider>
+        </ConvexClientProvider>
 
       </body>
     </html>
