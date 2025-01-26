@@ -28,13 +28,13 @@ export const CreateUser = mutation({
       console.log(result);
     }
   },
-});
+})
 
 export const GetUser = query({
   args: {
     email: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async(ctx, args) => {
     const user = await ctx.db
       .query("users")
       .filter((q) => q.eq(q.field("email"), args.email))

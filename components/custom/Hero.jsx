@@ -10,29 +10,20 @@ import SignInDialog from "./SignInDialog";
 const Hero = () => {
   const [userInput, setUserInput] = useState();
 
-    const {messages, setMessages} = useContext(MessagesContext);
-    const {userDetail, setUserDetail} = useContext(UserDetailContext);
-    const [openDialog, setOpenDialog] = useState(false);
-
+  const { messages, setMessages } = useContext(MessagesContext);
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const onGenerate = (input) => {
-    if(!userDetail?.name){
-        setOpenDialog(true);
-        return;
-
+    if (!userDetail?.name) {
+      setOpenDialog(true);
+      return;
     }
     setMessages({
-        role:"user",
-        content: input
-    }
-
-    )
-  }
-
-
-
-
-
+      role: "user",
+      content: input,
+    });
+  };
 
   return (
     <div className="flex flex-col items-center mt-20 xl:mt-52 gap-2">
@@ -72,7 +63,12 @@ const Hero = () => {
           </h2>
         ))}
       </div>
-      <SignInDialog openDialog={openDialog} closeDialog = {(v)=>{setOpenDialog(v)}}></SignInDialog>
+      <SignInDialog
+        openDialog={openDialog}
+        closeDialog={(v) => {
+          setOpenDialog(v);
+        }}
+      ></SignInDialog>
     </div>
   );
 };

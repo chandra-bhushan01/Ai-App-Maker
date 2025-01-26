@@ -18,10 +18,10 @@ const Provider = ({ children }) => {
   }, []);
 
   const IsAuthenticated = async () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== undefined) {
       const user = JSON.parse(localStorage.getItem("user"));
       //fetch form database
-      const result = await convex.query(api.users.getUser, {
+      const result = await convex.query(api.users.GetUser, {
         email: user?.email,
       });
       setUserDetail(result);

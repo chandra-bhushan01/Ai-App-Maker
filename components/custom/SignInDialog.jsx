@@ -28,7 +28,7 @@ const SignInDialog = ({ openDialog, closeDialog }) => {
         { headers: { Authorization: "Bearer " + tokenResponse.access_token } }
       );
 
-      console.log(userInfo);
+      // console.log(userInfo);
       const user = userInfo?.data;
       await CreateUser({
         name: user?.name,
@@ -37,7 +37,7 @@ const SignInDialog = ({ openDialog, closeDialog }) => {
         uid: uuid4(),
       });
 
-      if (typeof window !== "undefined") {
+      if (typeof window !== undefined) {
         localStorage.setItem("user", JSON.stringify(user));
       }
 
