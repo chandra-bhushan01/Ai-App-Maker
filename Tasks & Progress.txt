@@ -10,3 +10,11 @@
     - Message Context to make data available through the whole app.
     - setup of input box and suggestion mechanisms.
 
+- Authentication setup
+    - userDetailContext creation
+    - Sign In dialog box integration
+    - React OAuth2 | Google integration
+    - google Oauth2 id generation and setup.
+
+- Backend using Convex
+
