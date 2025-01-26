@@ -4,3 +4,9 @@
     - dark mode integration
     - git repositry creation and setup 
     
+- Ui creation 
+    - Header (logo, signin, signup)
+    - Hero (Description, text area to take input etc)
+    - Message Context to make data available through the whole app.
+    - setup of input box and suggestion mechanisms.
+
