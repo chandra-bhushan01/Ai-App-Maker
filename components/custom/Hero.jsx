@@ -4,8 +4,12 @@ import { UserDetailContext } from "@/context/UserDetailContext";
 import Colors from "@/data/Colors";
 import Lookup from "@/data/Lookup";
 import { ArrowRight, Link } from "lucide-react";
-import React, { useContext, useState } from "react";
+import React, { use, useContext, useState } from "react";
 import SignInDialog from "./SignInDialog";
+
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const [userInput, setUserInput] = useState();
@@ -13,20 +17,35 @@ const Hero = () => {
   const { messages, setMessages } = useContext(MessagesContext);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const [openDialog, setOpenDialog] = useState(false);
+  const CreateWorkspace = useMutation(api.workspace.CreateWorkspace);
+  const router = useRouter();
 
-  const onGenerate = (input) => {
+  const onGenerate = async(input) => {
     if (!userDetail?.name) {
       setOpenDialog(true);
       return;
     }
-    setMessages({
+
+    const msg = {
       role: "user",
       content: input,
-    });
+
+    }
+
+    setMessages(msg);
+
+    const workspaceId = await CreateWorkspace({
+      user: userDetail._id,
+      messages:[msg]
+    })
+
+    console.log(workspaceId);
+    router.push('/workspace/'+workspaceId);
+
   };
 
   return (
-    <div className="flex flex-col items-center mt-20 xl:mt-52 gap-2">
+    <div className="flex flex-col items-center mt-20 xl:mt-25 gap-2">
       <h2 className="font-bold text-4xl">{Lookup.HERO_HEADING}</h2>
       <p className="text-gray-400 font-medium">{Lookup.HERO_DESC}</p>
       <div
@@ -67,7 +86,7 @@ const Hero = () => {
         openDialog={openDialog}
         closeDialog={(v) => {
           setOpenDialog(v);
-        }}
+        }} 
       ></SignInDialog>
     </div>
   );
