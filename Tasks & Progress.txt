@@ -27,6 +27,15 @@
     - added workspace schema into schema.js
     - created workspace model and function
     - setup dynamic router to the workspace page..
+
+- creation of diff views in workspace
+    - CHAT VIEW created to view the user profiel and query
+    - CODE VIEW to preview the generated code of the user.
+    - modified header to view login options only when users are not available.
+    - added funciton in workspace schema 
+
+
+    
     
 
 

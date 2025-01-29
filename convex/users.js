@@ -25,7 +25,7 @@ export const CreateUser = mutation({
         picture: args.picture,
         uid: args.uid,
       });
-      console.log(result);
+      // console.log(result);
     }
   },
 })

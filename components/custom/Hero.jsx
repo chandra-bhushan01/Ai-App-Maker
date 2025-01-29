@@ -19,6 +19,7 @@ const Hero = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const CreateWorkspace = useMutation(api.workspace.CreateWorkspace);
   const router = useRouter();
+ 
 
   const onGenerate = async(input) => {
     if (!userDetail?.name) {
@@ -39,7 +40,7 @@ const Hero = () => {
       messages:[msg]
     })
 
-    console.log(workspaceId);
+    // console.log(workspaceId);
     router.push('/workspace/'+workspaceId);
 
   };
