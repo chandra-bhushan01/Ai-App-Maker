@@ -34,6 +34,14 @@
     - modified header to view login options only when users are not available.
     - added funciton in workspace schema 
 
+- Gemini Ai integration
+    - google ai api key created
+    - created api routes for ai
+    - Ai model created
+    - edited messages Context.
+    - funciton to update chat messages created
+    - added no tailwind scrollbar-hide
+    - also integrated react-Markdown to view chats more attractivily.
 
     
     
