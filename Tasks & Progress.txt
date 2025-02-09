@@ -45,7 +45,7 @@
 
 
 
-- Code Editor
+- Code Editor & preview
     - integrated Sandpack Libary
     - added some dependencies in the code editor inside code view
     - formated the preview and code tabs
