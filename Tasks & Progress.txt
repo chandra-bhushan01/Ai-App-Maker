@@ -51,6 +51,17 @@
     - formated the preview and code tabs
     - integrated Tailwind css cdn.
 
+
+- Project Code Generation with AI
+    - created gen-ai-code api endpoint.
+    - function to generate code.
+    - edited workspace and added funciton to store generated code to the DB.
+    - generation history configuration. 
+    - added loading screen while code is generated.
+    - setup Initial loading to db so that the saved code id fetched from DB. (page reloading)
+    
+
+- 
     
     
 
