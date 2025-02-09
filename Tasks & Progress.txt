@@ -43,6 +43,14 @@
     - added no tailwind scrollbar-hide
     - also integrated react-Markdown to view chats more attractivily.
 
+
+
+- Code Editor
+    - integrated Sandpack Libary
+    - added some dependencies in the code editor inside code view
+    - formated the preview and code tabs
+    - integrated Tailwind css cdn.
+
     
     
 
