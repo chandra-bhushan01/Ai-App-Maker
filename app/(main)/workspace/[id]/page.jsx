@@ -5,7 +5,7 @@ import React from 'react'
 
 const workspace = () => {
   return (
-    <div className="p-4">
+    <div className="px-3 h-full ">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
         <ChatView />
 

@@ -13,34 +13,30 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { useSidebar } from "../ui/sidebar";
 
 const ChatView = () => {
   const { id } = useParams();
   const convex = useConvex();
   const { messages, setMessages } = useContext(MessagesContext);
-  const {userDetail, setUserDetail} = useContext(UserDetailContext);
-  const [userInput, setUserInput ] = useState("");
-  const [loading,setLoading] = useState(false);
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const [userInput, setUserInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const UpdateMessages = useMutation(api.workspace.UpdateMessages);
+  const {toggleSidebar} = useSidebar()
 
   useEffect(() => {
     id && getWorkspaceData();
   }, [id]);
 
-  useEffect(()=>{
-    if(messages?.length >0){
-      const role = messages[messages.length-1].role;
-      if(role === "user"){
-
-        GetAiResponse()
+  useEffect(() => {
+    if (messages?.length > 0) {
+      const role = messages[messages.length - 1].role;
+      if (role === "user") {
+        GetAiResponse();
       }
-
     }
-  },[messages])
-
-
-
-
+  }, [messages]);
 
   //use to get workspace data, using workspaceId.
   const getWorkspaceData = async () => {
@@ -48,43 +44,43 @@ const ChatView = () => {
       workspaceId: id,
     });
     setMessages(result?.messages);
-    console.log(result.messages);
+    console.log(result?.messages);
   };
 
-
-  const GetAiResponse= async()=>{
+  const GetAiResponse = async () => {
     setLoading(true);
-    const PROMPT = JSON.stringify(messages)+Prompt.CHAT_PROMPT;
-    const result = await axios.post('/api/ai-chat',{
-      prompt:PROMPT
+    const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
+    const result = await axios.post("/api/ai-chat", {
+      prompt: PROMPT,
     });
 
     console.log(result.data.result);
 
     const aiResp = {
-      role:"ai",
-      content: result.data.result
-    }
+      role: "ai",
+      content: result.data.result,
+    };
 
-    setMessages(prev=>[...prev,aiResp])
+    setMessages((prev) => [...prev, aiResp]);
 
     await UpdateMessages({
       messages: [...messages, aiResp],
-      workspaceId: id
-    })
+      workspaceId: id,
+    });
     setLoading(false);
+  };
 
-  }
+  const onGenerate = (input) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        content: input,
+      },
+    ]);
 
-  const onGenerate = (input)=>{
-    setMessages( prev => [...prev,{
-      role:"user",
-      content: input
-    }])
-    
     setUserInput(""); //To clear the text area after submittion (button click)
-
-  }
+  };
 
   return (
     <div className="relative h-[82vh]  flex flex-col">
@@ -105,10 +101,9 @@ const ChatView = () => {
                   className="rounded-full"
                 />
               )}
-              <ReactMarkdown 
-              className=" flex flex-col"
-              >{msg.content}</ReactMarkdown>
-              
+              <ReactMarkdown className=" flex flex-col">
+                {msg.content}
+              </ReactMarkdown>
             </div>
           ))
         ) : (
@@ -127,28 +122,42 @@ const ChatView = () => {
         )}
       </div>
 
-      <div
-        className="p-5 border h-40 rounded-xl max-w-xl w-full mt-3"
-        style={{
-          backgroundColor: Colors.BACKGROUND,
-        }}
-      >
-        <div className="flex gap-2 ">
-          <textarea
-            value={userInput} //controled binding for the text area..
-            onChange={(e) => setUserInput(e.target.value)}
-            className="outline-none bg-transparent w-full h-24 max-h-56 resize-none"
-            placeholder={Lookup.INPUT_PLACEHOLDER}
-          ></textarea>
-          {userInput && (
-            <ArrowRight
-              onClick={() => onGenerate(userInput)}
-              className="bg-blue-500  p-2 h-8 w-8 rounded-md cursor-pointer"
-            />
-          )}
-        </div>
-        <div>
-          <Link className="h-5 w-5 " />
+      {/* {Input section} */}
+      <div className="flex gap-1 items-end">
+        {userDetail && (
+          <Image
+          onClick={toggleSidebar}
+          className="rounded-full cursor-pointer"
+            src={userDetail?.picture}
+            width={30}
+            height={30}
+            alt="user image"
+          />
+        )}
+
+        <div
+          className="p-5 border h-40 rounded-xl max-w-xl w-full mt-3"
+          style={{
+            backgroundColor: Colors.BACKGROUND,
+          }}
+        >
+          <div className="flex gap-2 ">
+            <textarea
+              value={userInput} //controled binding for the text area..
+              onChange={(e) => setUserInput(e.target.value)}
+              className="outline-none bg-transparent w-full h-24 max-h-56 resize-none"
+              placeholder={Lookup.INPUT_PLACEHOLDER}
+            ></textarea>
+            {userInput && (
+              <ArrowRight
+                onClick={() => onGenerate(userInput)}
+                className="bg-blue-500  p-2 h-8 w-8 rounded-md cursor-pointer"
+              />
+            )}
+          </div>
+          <div>
+            <Link className="h-5 w-5 " />
+          </div>
         </div>
       </div>
     </div>

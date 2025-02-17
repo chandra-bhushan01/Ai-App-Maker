@@ -7,6 +7,8 @@ import { UserDetailContext } from "@/context/UserDetailContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useConvex } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import AppSideBar from "@/components/custom/AppSideBar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const Provider = ({ children }) => {
   const [messages, setMessages] = useState();
@@ -43,7 +45,12 @@ const Provider = ({ children }) => {
               disableTransitionOnChange
             >
               <Header />
-              {children}
+              <SidebarProvider className='fixed flex justify-center' defaultOpen={false}>
+              
+                <AppSideBar></AppSideBar>
+                {children}
+                
+              </SidebarProvider>
             </NextThemesProvider>
           </MessagesContext.Provider>
         </UserDetailContext.Provider>

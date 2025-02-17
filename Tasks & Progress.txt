@@ -61,7 +61,11 @@
     - setup Initial loading to db so that the saved code id fetched from DB. (page reloading)
     
 
-- 
+- Sidebar creation
+    - side bar added
+    - side bar configuration
+    - WorkspaceHistory component created.
+    - all ui part done, functionallity in progress..
     
     
 
