@@ -15,6 +15,13 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useSidebar } from "../ui/sidebar";
 
+export const countToken = (inputText) => {
+  return inputText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word).length;
+};
+
 const ChatView = () => {
   const { id } = useParams();
   const convex = useConvex();
@@ -23,7 +30,8 @@ const ChatView = () => {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const UpdateMessages = useMutation(api.workspace.UpdateMessages);
-  const {toggleSidebar} = useSidebar()
+  const { toggleSidebar } = useSidebar();
+  const UpdateTokens = useMutation(api.users.UpdateToken);
 
   useEffect(() => {
     id && getWorkspaceData();
@@ -48,26 +56,39 @@ const ChatView = () => {
   };
 
   const GetAiResponse = async () => {
-    setLoading(true);
-    const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
-    const result = await axios.post("/api/ai-chat", {
-      prompt: PROMPT,
-    });
+    try {
+      setLoading(true);
+      const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
+      const result = await axios.post("/api/ai-chat", {
+        prompt: PROMPT,
+      });
 
-    console.log(result.data.result);
+      console.log(result.data.result);
 
-    const aiResp = {
-      role: "ai",
-      content: result.data.result,
-    };
+      const aiResp = {
+        role: "ai",
+        content: result.data.result,
+      };
 
-    setMessages((prev) => [...prev, aiResp]);
+      setMessages((prev) => [...prev, aiResp]);
 
-    await UpdateMessages({
-      messages: [...messages, aiResp],
-      workspaceId: id,
-    });
-    setLoading(false);
+      await UpdateMessages({
+        messages: [...messages, aiResp],
+        workspaceId: id,
+      });
+
+      const token = Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
+      // update tokens to database
+      await UpdateTokens({
+        userId:userDetail?._id,
+        token:token
+      });
+
+      setLoading(false)
+
+    } catch (e) {
+      setLoading(false);
+    }
   };
 
   const onGenerate = (input) => {
@@ -126,8 +147,8 @@ const ChatView = () => {
       <div className="flex gap-1 items-end">
         {userDetail && (
           <Image
-          onClick={toggleSidebar}
-          className="rounded-full cursor-pointer"
+            onClick={toggleSidebar}
+            className="rounded-full cursor-pointer"
             src={userDetail?.picture}
             width={30}
             height={30}

@@ -66,6 +66,14 @@
     - side bar configuration
     - WorkspaceHistory component created.
     - all ui part done, functionallity in progress..
+
+- tokenization
+    - added token field to the user table.
+    - gave default tokens to the users 50000
+    - created a function to create token and exported it to use elsewhere too..
+    - setup updatetoken mutation and mechanism.
+    - updating tokens to the database.
+    - implemented same mechanism in the code view also..
     
     
 

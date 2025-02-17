@@ -15,35 +15,33 @@ import { useConvex, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
+import { countToken } from "./ChatView";
+import { UserDetailContext } from "@/context/UserDetailContext";
 
 const CodeView = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const [activeTab, setActiveTab] = useState("code");
   const [files, setFiles] = useState(Lookup?.DEFAULT_FILE);
   const { messages, setMessages } = useContext(MessagesContext);
   const UpdateFiles = useMutation(api.workspace.UpdateFiles);
   const convex = useConvex();
   const [loading, setLoading] = useState(false);
+  const UpdateTokens = useMutation(api.users.UpdateToken);
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     GetFiles();
-  },[id])
+  }, [id]);
 
-  const GetFiles = async()=>{
+  const GetFiles = async () => {
     setLoading(true);
-    const result = await convex.query(api.workspace.getWorkspace,{
-      workspaceId:id,
+    const result = await convex.query(api.workspace.getWorkspace, {
+      workspaceId: id,
     });
     const mergedFiles = { ...Lookup.DEFAULT_FILE, ...result?.fieldata };
     setFiles(mergedFiles);
     setLoading(false);
-
-
-
-  }
-
-
+  };
 
   useEffect(() => {
     if (messages?.length > 0) {
@@ -67,8 +65,18 @@ const CodeView = () => {
     setFiles(mergedFiles);
     await UpdateFiles({
       workspaceId: id,
-      files: aiResp?.files
+      files: aiResp?.files,
     });
+
+    const token =
+      Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
+    // update tokens to database
+    await UpdateTokens({
+      userId: userDetail?._id,
+      token: token,
+    });
+
+    setActiveTab("code");
     setLoading(false);
   };
 
@@ -115,12 +123,12 @@ const CodeView = () => {
         </SandpackLayout>
       </SandpackProvider>
 
-        {loading && <div className="p-10 bg-gray-900 opacity-80 top-0 rounded-lg w-full h-full justify-center flex items-center absolute ">
+      {loading && (
+        <div className="p-10 bg-gray-900 opacity-80 top-0 rounded-lg w-full h-full justify-center flex items-center absolute ">
           <Loader2Icon className="animate-spin h-10 w-10 text-white"></Loader2Icon>
           <h2 className="text-white">Generating your files...</h2>
-
-        </div>}
-
+        </div>
+      )}
     </div>
   );
 };
