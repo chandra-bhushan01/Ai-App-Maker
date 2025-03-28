@@ -19,9 +19,8 @@ const Hero = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const CreateWorkspace = useMutation(api.workspace.CreateWorkspace);
   const router = useRouter();
- 
 
-  const onGenerate = async(input) => {
+  const onGenerate = async (input) => {
     if (!userDetail?.name) {
       setOpenDialog(true);
       return;
@@ -30,19 +29,17 @@ const Hero = () => {
     const msg = {
       role: "user",
       content: input,
-
-    }
+    };
 
     setMessages(msg);
 
     const workspaceId = await CreateWorkspace({
       user: userDetail._id,
-      messages:[msg]
-    })
+      messages: [msg],
+    });
 
     // console.log(workspaceId);
-    router.push('/workspace/'+workspaceId);
-
+    router.push("/workspace/" + workspaceId);
   };
 
   return (
@@ -87,7 +84,7 @@ const Hero = () => {
         openDialog={openDialog}
         closeDialog={(v) => {
           setOpenDialog(v);
-        }} 
+        }}
       ></SignInDialog>
     </div>
   );

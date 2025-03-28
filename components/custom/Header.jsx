@@ -9,12 +9,14 @@ import { CodeContext } from "@/context/CodeContext";
 import { DownloadCloud, Rocket } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ActionContext } from "@/context/ActionContext";
+import SignInDialog from "./SignInDialog";
 
 
 const Header = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const {codeGenerated, setCodeGenerated} = useContext(CodeContext);
   const {action, setAction} = useContext(ActionContext);
+  const [openDialog, setOpenDialog] = useState(false);
 
 
   const pathName = usePathname();
@@ -52,7 +54,9 @@ const Header = () => {
 
       {!userDetail && (
         <div className="flex gap-5">
-          <Button variant="ghost">Sign In</Button>
+          <Button variant="ghost" onClick={() => setOpenDialog(true)}>
+            Sign In
+          </Button>
           <Button
             className="text-white"
             style={{
@@ -71,7 +75,7 @@ const Header = () => {
             style={{
               backgroundColor: "#4F46E5",
             }}
-            onClick={() => onActionBtn('export')}
+            onClick={() => onActionBtn("export")}
           >
             <DownloadCloud></DownloadCloud>
             Export
@@ -81,13 +85,19 @@ const Header = () => {
             style={{
               backgroundColor: "#4F46E5",
             }}
-            onClick={() => onActionBtn('deploy')}
+            onClick={() => onActionBtn("deploy")}
           >
             <Rocket />
             deploy
           </Button>
         </div>
       )}
+      <SignInDialog
+        openDialog={openDialog}
+        closeDialog={(v) => {
+          setOpenDialog(v);
+        }}
+      ></SignInDialog>
     </div>
   );
 };
