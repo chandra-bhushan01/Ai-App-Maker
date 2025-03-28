@@ -9,10 +9,16 @@ import { useConvex } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import AppSideBar from "@/components/custom/AppSideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { CodeContext } from "@/context/CodeContext";
+import { ActionContext } from "@/context/ActionContext";
+import { useRouter } from "next/navigation";
 
 const Provider = ({ children }) => {
   const [messages, setMessages] = useState();
   const [userDetail, setUserDetail] = useState();
+  const [codeGenerated, setCodeGenerated] = useState();
+  const [action, setAction] = useState();
+  const router = useRouter();
   const convex = useConvex();
 
   useEffect(() => {
@@ -22,6 +28,13 @@ const Provider = ({ children }) => {
   const IsAuthenticated = async () => {
     if (typeof window !== undefined) {
       const user = JSON.parse(localStorage.getItem("user"));
+      if(!user){
+        router.push("/");
+        return;
+      }
+
+
+
       //fetch form database
       const result = await convex.query(api.users.GetUser, {
         email: user?.email,
@@ -38,20 +51,25 @@ const Provider = ({ children }) => {
       >
         <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
           <MessagesContext.Provider value={{ messages, setMessages }}>
-            <NextThemesProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Header />
-              <SidebarProvider className='fixed flex justify-center' defaultOpen={false}>
-              
-                <AppSideBar></AppSideBar>
-                {children}
-                
-              </SidebarProvider>
-            </NextThemesProvider>
+            <CodeContext.Provider value={{ codeGenerated, setCodeGenerated }}>
+              <ActionContext.Provider value={{ action, setAction }}>
+                <NextThemesProvider
+                  attribute="class"
+                  defaultTheme="dark"
+                  enableSystem
+                  disableTransitionOnChange
+                >
+                  <Header />
+                  <SidebarProvider
+                    className="fixed flex justify-center"
+                    defaultOpen={false}
+                  >
+                    <AppSideBar></AppSideBar>
+                    {children}
+                  </SidebarProvider>
+                </NextThemesProvider>
+              </ActionContext.Provider>
+            </CodeContext.Provider>
           </MessagesContext.Provider>
         </UserDetailContext.Provider>
       </GoogleOAuthProvider>

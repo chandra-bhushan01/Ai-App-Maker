@@ -22,7 +22,7 @@ import { UserDetailContext } from "@/context/UserDetailContext";
 
 const AppSideBar = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
-  userDetail && console.log(userDetail.name);
+  ;
 
   return (
     <Sidebar className="h-full">

@@ -52,7 +52,7 @@ const ChatView = () => {
       workspaceId: id,
     });
     setMessages(result?.messages);
-    console.log(result?.messages);
+    
   };
 
   const GetAiResponse = async () => {
@@ -63,7 +63,6 @@ const ChatView = () => {
         prompt: PROMPT,
       });
 
-      console.log(result.data.result);
 
       const aiResp = {
         role: "ai",

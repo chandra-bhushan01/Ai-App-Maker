@@ -17,6 +17,9 @@ import { useParams } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
 import { countToken } from "./ChatView";
 import { UserDetailContext } from "@/context/UserDetailContext";
+import { CodeContext } from "@/context/CodeContext";
+import SandpackPreviewClient from "./SandpackPreviewClient";
+import { ActionContext } from "@/context/ActionContext";
 
 const CodeView = () => {
   const { id } = useParams();
@@ -28,10 +31,21 @@ const CodeView = () => {
   const [loading, setLoading] = useState(false);
   const UpdateTokens = useMutation(api.users.UpdateToken);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const { codeGenerated, setCodeGenerated } = useContext(CodeContext);
+  const {action, setAction} = useContext(ActionContext);
+
 
   useEffect(() => {
     GetFiles();
+    // setCodeGenerated(true);
   }, [id]);
+
+
+
+
+  useEffect(()=>{
+    setActiveTab("preview");
+  },[action])
 
   const GetFiles = async () => {
     setLoading(true);
@@ -41,6 +55,7 @@ const CodeView = () => {
     const mergedFiles = { ...Lookup.DEFAULT_FILE, ...result?.fieldata };
     setFiles(mergedFiles);
     setLoading(false);
+    setCodeGenerated(true);
   };
 
   useEffect(() => {
@@ -54,6 +69,7 @@ const CodeView = () => {
 
   const GenerateAiCode = async () => {
     setLoading(true);
+    setCodeGenerated(false);
     const PROMPT = JSON.stringify(messages) + " " + Prompt.CODE_GEN_PROMPT;
     const result = await axios.post("/api/gen-ai-code", {
       prompt: PROMPT,
@@ -78,6 +94,8 @@ const CodeView = () => {
 
     setActiveTab("code");
     setLoading(false);
+    setCodeGenerated(true);
+
   };
 
   return (
@@ -118,7 +136,7 @@ const CodeView = () => {
               <SandpackCodeEditor style={{ height: "74vh" }} />
             </>
           ) : (
-            <SandpackPreview style={{ height: "73vh" }} showNavigator={true} />
+            <SandpackPreviewClient></SandpackPreviewClient>
           )}
         </SandpackLayout>
       </SandpackProvider>

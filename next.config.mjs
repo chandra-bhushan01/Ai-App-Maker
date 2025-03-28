@@ -3,9 +3,8 @@ const nextConfig = {
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
-  experimental: {
-    disableStaticImages: true,
-  },
+  experimental: {},
+  devIndicators: false,
 };
 
 export default nextConfig;
