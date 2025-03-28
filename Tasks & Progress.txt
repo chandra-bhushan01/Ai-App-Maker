@@ -74,6 +74,13 @@
     - setup updatetoken mutation and mechanism.
     - updating tokens to the database.
     - implemented same mechanism in the code view also..
+
+
+
+- export and deploy
+    - created ui buttons for export and deploy.
+    - created functionallity.
+    
     
     
 
