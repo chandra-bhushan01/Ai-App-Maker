@@ -59,11 +59,11 @@ const Provider = ({ children }) => {
                   enableSystem
                   disableTransitionOnChange
                 >
-                  <Header />
                   <SidebarProvider
                     className="fixed flex justify-center"
                     defaultOpen={false}
                   >
+                  <Header/>
                     <AppSideBar></AppSideBar>
                     {children}
                   </SidebarProvider>

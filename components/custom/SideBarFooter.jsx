@@ -32,7 +32,7 @@ const SideBarFooter = () => {
   };
 
   return (
-    <div className="mb-5">
+    <div className="mt-2 mb-1">
       {options.map((option, idx) => (
         <Button
           key={idx}

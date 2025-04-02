@@ -28,22 +28,24 @@ const AppSideBar = () => {
     <Sidebar className="h-full">
       <SidebarHeader className="p-1">
         <div className="flex items-center gap-3 mt-5">
-          <Image
-            src="/ThunderLogo.png"
-            alt="logo"
-            width={40}
-            height={40}
-            
-          />
+          <Image src="/ThunderLogo.png" alt="logo" width={40} height={40} />
           <div className="text-white-400">
-            <h2 className="text-lg font-semibold ">
-              Hello, <br />
-              <span >{userDetail?.name}</span>
+            <h2 className="text-lg font-medium ">
+              Hey there,
+              <br />
+              <span>
+                 lets get started!
+              </span>
             </h2>
           </div>
         </div>
 
-        <Button className="mx-5">
+        <Button
+          className="mx-5 mt-2"
+          onClick={() => {
+            window.location.href = "/";
+          }}
+        >
           <MessageCircleCode /> Start new chat
         </Button>
       </SidebarHeader>

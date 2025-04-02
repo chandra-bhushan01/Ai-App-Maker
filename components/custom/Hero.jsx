@@ -45,7 +45,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-10 md:mt-20 px-4 w-full">
+    <div className="flex flex-col items-center mt-28 md:mt-28 px-4 w-full">
       <h2 className="font-bold text-3xl md:text-4xl text-center">
         {Lookup.HERO_HEADING}
       </h2>
@@ -73,6 +73,7 @@ const Hero = () => {
           <Link className="h-5 w-5 text-gray-500 hover:text-gray-700" />
         </div>
       </div>
+
       <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-6 w-full max-w-xl">
         {Lookup?.SUGGSTIONS.map((suggestion, index) => (
           <h2
@@ -84,6 +85,7 @@ const Hero = () => {
           </h2>
         ))}
       </div>
+
       <SignInDialog
         openDialog={openDialog}
         closeDialog={(v) => setOpenDialog(v)}

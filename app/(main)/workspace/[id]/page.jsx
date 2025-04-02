@@ -1,18 +1,19 @@
 import ChatView from "@/components/custom/ChatView";
 import CodeView from "@/components/custom/CodeView";
-import { FileVideo } from "lucide-react";
 import React from "react";
 
-const workspace = () => {
+const Workspace = () => {
   return (
-    <div className="px-3 h-full">
-      
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-10">
-        <div className="md:col-span-1 sm:col-span-1">
+    <div className="p-3 mt-24 pb-11 overflow-auto w-full h-full  sm:mt-16">
+      {/* Grid layout for responsiveness */}
+      <div className="flex flex-col md:flex-row gap-5 h-[500px]">
+        {/* Chat Section (1/4 width on large screens) */}
+        <div className="w-ful md:w-1/4">
           <ChatView />
         </div>
 
-        <div className="md:col-span-3 sm:col-span-1">
+        {/* Code Section (3/4 width on large screens) */}
+        <div className="w-full md:w-3/4 ">
           <CodeView />
         </div>
       </div>
@@ -20,4 +21,4 @@ const workspace = () => {
   );
 };
 
-export default workspace;
+export default Workspace;

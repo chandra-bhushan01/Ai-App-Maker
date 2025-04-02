@@ -21,7 +21,7 @@ import { CodeContext } from "@/context/CodeContext";
 import SandpackPreviewClient from "./SandpackPreviewClient";
 import { ActionContext } from "@/context/ActionContext";
 
-const CodeView = () => {
+const   CodeView = () => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("code");
   const [files, setFiles] = useState(Lookup?.DEFAULT_FILE);
@@ -99,18 +99,18 @@ const CodeView = () => {
   };
 
   return (
-    <div className="relative">
-      <div className="bg-[#181818] w-full p-1 border">
-        <div className=" flex items-center flex-wrap  rounded-full shrink-0 bg-black p-1 w-[140px] gap-3 justify-center">
+    <div className=" w-full flex h-full flex-col mb-9 md:mb-1">
+      <div className="bg-[#181818] p-1 border">
+        <div className="flex items-center flex-wrap rounded-full shrink-0 bg-black p-1 w-[140px] gap-3 justify-center">
           <h2
             onClick={() => setActiveTab("code")}
-            className={` text-sm cursor-pointer ${activeTab == "code" && "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"}`}
+            className={`text-sm cursor-pointer ${activeTab == "code" && "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"}`}
           >
             Code
           </h2>
           <h2
             onClick={() => setActiveTab("preview")}
-            className={` text-sm cursor-pointer ${activeTab == "preview" && "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"}`}
+            className={`text-sm cursor-pointer ${activeTab == "preview" && "text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2 rounded-full"}`}
           >
             Preview
           </h2>
@@ -119,31 +119,29 @@ const CodeView = () => {
       <SandpackProvider
         files={files}
         template="react"
-        theme={"dark"}
+        theme="dark"
         customSetup={{
-          dependencies: {
-            ...Lookup.DEPENDANCY,
-          },
+          dependencies: { ...Lookup.DEPENDANCY },
         }}
         options={{
           externalResources: ["https://unpkg.com/@tailwindcss/browser@4"],
         }}
       >
-        <SandpackLayout>
+        <SandpackLayout >
           {activeTab === "code" ? (
             <>
-              <SandpackFileExplorer style={{ height: "74vh" }} />
-              <SandpackCodeEditor style={{ height: "74vh" }} />
+              <SandpackFileExplorer  />
+              <SandpackCodeEditor />
             </>
           ) : (
-            <SandpackPreviewClient></SandpackPreviewClient>
+            <SandpackPreviewClient />
           )}
         </SandpackLayout>
       </SandpackProvider>
 
       {loading && (
-        <div className="p-10 bg-gray-900 opacity-80 top-0 rounded-lg w-full h-full justify-center flex items-center absolute ">
-          <Loader2Icon className="animate-spin h-10 w-10 text-white"></Loader2Icon>
+        <div className="p-10 bg-gray-900 opacity-80 top-0 rounded-lg w-full h-full flex justify-center items-center absolute">
+          <Loader2Icon className="animate-spin h-10 w-10 text-white" />
           <h2 className="text-white">Generating your files...</h2>
         </div>
       )}

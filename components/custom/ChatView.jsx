@@ -137,13 +137,12 @@ const ChatView = () => {
           </div>
         )}
       </div>
-
       {/* Input section */}
-      <div className="flex flex-col sm:flex-row gap-1 items-end">
+      <div className="flex items-end gap-3 w-full mt-3">
         {userDetail && (
           <Image
             onClick={toggleSidebar}
-            className="rounded-full cursor-pointer"
+            className="rounded-full cursor-pointer mt-10"
             src={userDetail?.picture}
             width={30}
             height={30}
@@ -152,14 +151,14 @@ const ChatView = () => {
         )}
 
         <div
-          className="p-5 border h-40 rounded-xl max-w-xl w-full mt-3"
+          className="p-4 border h-auto rounded-xl w-full max-w-xl flex flex-col"
           style={{
             backgroundColor: Colors.BACKGROUND,
           }}
         >
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex items-center gap-2">
             <textarea
-              value={userInput} // Controlled binding for the text area
+              value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               className="outline-none bg-transparent w-full h-24 max-h-56 resize-none"
               placeholder={Lookup.INPUT_PLACEHOLDER}
@@ -167,13 +166,11 @@ const ChatView = () => {
             {userInput && (
               <ArrowRight
                 onClick={() => onGenerate(userInput)}
-                className="bg-blue-500 p-2 h-8 w-8 rounded-md cursor-pointer mt-2 sm:mt-0"
+                className="bg-blue-500 p-2 h-8 w-8 rounded-md cursor-pointer"
               />
             )}
           </div>
-          <div>
-            <Link className="h-5 w-5" />
-          </div>
+          <Link className="h-5 w-5 mt-2" />
         </div>
       </div>
     </div>
