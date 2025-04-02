@@ -127,11 +127,11 @@ const   CodeView = () => {
           externalResources: ["https://unpkg.com/@tailwindcss/browser@4"],
         }}
       >
-        <SandpackLayout >
+        <SandpackLayout>
           {activeTab === "code" ? (
             <>
-              <SandpackFileExplorer  />
-              <SandpackCodeEditor />
+              <SandpackFileExplorer style={{ height: "74vh" }} />
+              <SandpackCodeEditor style={{ height: "74vh" }} />
             </>
           ) : (
             <SandpackPreviewClient />
