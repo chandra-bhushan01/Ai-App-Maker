@@ -46,13 +46,11 @@ const ChatView = () => {
     }
   }, [messages]);
 
-  //use to get workspace data, using workspaceId.
   const getWorkspaceData = async () => {
     const result = await convex.query(api.workspace.getWorkspace, {
       workspaceId: id,
     });
     setMessages(result?.messages);
-    
   };
 
   const GetAiResponse = async () => {
@@ -62,7 +60,6 @@ const ChatView = () => {
       const result = await axios.post("/api/ai-chat", {
         prompt: PROMPT,
       });
-
 
       const aiResp = {
         role: "ai",
@@ -76,15 +73,14 @@ const ChatView = () => {
         workspaceId: id,
       });
 
-      const token = Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
-      // update tokens to database
+      const token =
+        Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
       await UpdateTokens({
-        userId:userDetail?._id,
-        token:token
+        userId: userDetail?._id,
+        token: token,
       });
 
-      setLoading(false)
-
+      setLoading(false);
     } catch (e) {
       setLoading(false);
     }
@@ -99,11 +95,11 @@ const ChatView = () => {
       },
     ]);
 
-    setUserInput(""); //To clear the text area after submittion (button click)
+    setUserInput(""); // To clear the text area after submission
   };
 
   return (
-    <div className="relative h-[82vh]  flex flex-col">
+    <div className="relative h-[82vh] flex flex-col">
       <div className="flex-1 overflow-y-scroll scrollbar-hide">
         {Array.isArray(messages) && messages.length > 0 ? (
           messages.map((msg, idx) => (
@@ -121,7 +117,7 @@ const ChatView = () => {
                   className="rounded-full"
                 />
               )}
-              <ReactMarkdown className=" flex flex-col">
+              <ReactMarkdown className="flex flex-col">
                 {msg.content}
               </ReactMarkdown>
             </div>
@@ -142,8 +138,8 @@ const ChatView = () => {
         )}
       </div>
 
-      {/* {Input section} */}
-      <div className="flex gap-1 items-end">
+      {/* Input section */}
+      <div className="flex flex-col sm:flex-row gap-1 items-end">
         {userDetail && (
           <Image
             onClick={toggleSidebar}
@@ -161,9 +157,9 @@ const ChatView = () => {
             backgroundColor: Colors.BACKGROUND,
           }}
         >
-          <div className="flex gap-2 ">
+          <div className="flex flex-col sm:flex-row gap-2">
             <textarea
-              value={userInput} //controled binding for the text area..
+              value={userInput} // Controlled binding for the text area
               onChange={(e) => setUserInput(e.target.value)}
               className="outline-none bg-transparent w-full h-24 max-h-56 resize-none"
               placeholder={Lookup.INPUT_PLACEHOLDER}
@@ -171,12 +167,12 @@ const ChatView = () => {
             {userInput && (
               <ArrowRight
                 onClick={() => onGenerate(userInput)}
-                className="bg-blue-500  p-2 h-8 w-8 rounded-md cursor-pointer"
+                className="bg-blue-500 p-2 h-8 w-8 rounded-md cursor-pointer mt-2 sm:mt-0"
               />
             )}
           </div>
           <div>
-            <Link className="h-5 w-5 " />
+            <Link className="h-5 w-5" />
           </div>
         </div>
       </div>

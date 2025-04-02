@@ -36,6 +36,13 @@ const Header = () => {
 
    }
 
+   const logout = () => {
+     if (typeof window !== "undefined") {
+       localStorage.removeItem("user"); // Remove user from storage
+       setUserDetail([]);
+       window.location.href = "/"; 
+     }
+   };
 
 
   return (
@@ -52,7 +59,7 @@ const Header = () => {
         </div>
       </Link>
 
-      {!userDetail && (
+      {!userDetail ? (
         <div className="flex gap-5">
           <Button variant="ghost" onClick={() => setOpenDialog(true)}>
             Sign In
@@ -64,6 +71,19 @@ const Header = () => {
             }}
           >
             Get Started
+          </Button>
+        </div>
+      ) : (
+        !isWorkspace&&
+        <div className=" flex gap-5">
+          <Button
+            onClick={() => logout()}
+            className="text-white"
+            style={{
+              backgroundColor: "#4F46E5",
+            }}
+          >
+            Logout
           </Button>
         </div>
       )}
