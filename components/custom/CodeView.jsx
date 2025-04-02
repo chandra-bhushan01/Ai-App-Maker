@@ -139,7 +139,7 @@ const   CodeView = () => {
         </SandpackLayout>
       </SandpackProvider>
 
-      {loading || (
+      {loading && (
         <div
           className=" bg-gray-900 opacity-80 top-1 rounded-lg w-full md:w-[159vh] h-full md:h-[82vh] md:mt-[70px] md flex justify-center items-center absolute "
         >
