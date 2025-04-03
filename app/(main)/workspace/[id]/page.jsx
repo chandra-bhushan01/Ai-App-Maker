@@ -4,11 +4,11 @@ import React from "react";
 
 const Workspace = () => {
   return (
-    <div className="h-screen w-full mt-20 gap-5 flex flex-col md:flex-row items-center justify-center overflow-hidden">
-      <div className="w-full  md:w-1/4 h-1/2 md:h-full p-3 overflow-y-auto">
+    <div className=" max-h-[95vh] w-full mt-24 rounded-lg border-solid flex flex-col md:flex-row gap-5 px-3 overflow-auto">
+      <div className="w-full md:w-1/4 min-h-0">
         <ChatView />
       </div>
-      <div className="w-full md:w-3/4 h-full p-3 mb-24 md:mb-0 overflow-y-auto md:overflow-hidden">
+      <div className=" w-full md:w-3/4 min-h-0 ">
         <CodeView />
       </div>
     </div>

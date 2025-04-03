@@ -60,7 +60,7 @@ const Provider = ({ children }) => {
                   disableTransitionOnChange
                 >
                   <SidebarProvider
-                    className="fixed flex justify-center overflow-auto "
+                    className="flex justify-center "
                     defaultOpen={false}
                   >
                   <Header/>
