@@ -99,7 +99,7 @@ const   CodeView = () => {
   };
 
   return (
-    <div className=" w-full flex h-full flex-col mb-9 md:mb-1">
+    <div className=" w-full flex h-full  flex-col md:mb-1">
       <div className="bg-[#181818] p-1 border">
         <div className="flex items-center flex-wrap rounded-full shrink-0 bg-black p-1 w-[140px] gap-3 justify-center">
           <h2
@@ -139,14 +139,14 @@ const   CodeView = () => {
         </SandpackLayout>
       </SandpackProvider>
 
-      {loading && (
+      {/* {loading && (
         <div
           className=" bg-gray-900 opacity-80 top-1 rounded-lg w-full md:w-[159vh] h-full md:h-[82vh] md:mt-[70px] md flex justify-center items-center absolute "
         >
           <Loader2Icon className="animate-spin h-10 w-10 text-white" />
           <h2 className="text-white">Generating your files...</h2>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
