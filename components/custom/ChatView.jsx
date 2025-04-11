@@ -99,8 +99,8 @@ const ChatView = () => {
   };
 
   return (
-    <div className=" h-[80vh] flex flex-col">
-      <div className="flex-1 overflow-y-scroll scrollbar-hide">
+    <div className="h-full flex flex-col max-h-[80vh]">
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
         {Array.isArray(messages) && messages.length > 0 ? (
           messages.map((msg, idx) => (
             <div
@@ -160,7 +160,7 @@ const ChatView = () => {
             <textarea
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              className="outline-none bg-transparent w-full h-24 max-h-56 resize-none"
+              className="outline-none bg-transparent w-full h-18 md:h-24 max-h-56 resize-none"
               placeholder={Lookup.INPUT_PLACEHOLDER}
             ></textarea>
             {userInput && (

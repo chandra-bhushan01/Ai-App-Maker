@@ -45,6 +45,7 @@ const Hero = () => {
   };
 
   return (
+    
     <div className="flex flex-col items-center mt-36 md:mt-30 px-4 w-full ">
       <h2 className="font-bold text-3xl md:text-4xl text-center">
         {Lookup.HERO_HEADING}

@@ -21,7 +21,7 @@ import { CodeContext } from "@/context/CodeContext";
 import SandpackPreviewClient from "./SandpackPreviewClient";
 import { ActionContext } from "@/context/ActionContext";
 
-const   CodeView = () => {
+const CodeView = () => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("code");
   const [files, setFiles] = useState(Lookup?.DEFAULT_FILE);
@@ -32,20 +32,16 @@ const   CodeView = () => {
   const UpdateTokens = useMutation(api.users.UpdateToken);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const { codeGenerated, setCodeGenerated } = useContext(CodeContext);
-  const {action, setAction} = useContext(ActionContext);
-
+  const { action, setAction } = useContext(ActionContext);
 
   useEffect(() => {
     GetFiles();
     // setCodeGenerated(true);
   }, [id]);
 
-
-
-
-  useEffect(()=>{
+  useEffect(() => {
     setActiveTab("preview");
-  },[action])
+  }, [action]);
 
   const GetFiles = async () => {
     setLoading(true);
@@ -95,11 +91,10 @@ const   CodeView = () => {
     setActiveTab("code");
     setLoading(false);
     setCodeGenerated(true);
-
   };
 
   return (
-    <div className=" w-full flex h-full  flex-col md:mb-1">
+    <div className="w-full flex flex-col min-h-[60vh] relative md:mb-1 overflow-y-auto scrollbar-hide">
       <div className="bg-[#181818] p-1 border">
         <div className="flex items-center flex-wrap rounded-full shrink-0 bg-black p-1 w-[140px] gap-3 justify-center">
           <h2
@@ -139,14 +134,12 @@ const   CodeView = () => {
         </SandpackLayout>
       </SandpackProvider>
 
-      {/* {loading && (
-        <div
-          className=" bg-gray-900 opacity-80 top-1 rounded-lg w-full md:w-[159vh] h-full md:h-[82vh] md:mt-[70px] md flex justify-center items-center absolute "
-        >
+      {loading && (
+        <div className="absolute inset-0 bg-gray-900 opacity-80 z-50 flex justify-center items-center">
           <Loader2Icon className="animate-spin h-10 w-10 text-white" />
-          <h2 className="text-white">Generating your files...</h2>
+          <h2 className="text-white ml-4">Generating your files...</h2>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
