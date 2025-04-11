@@ -44,7 +44,7 @@ const Header = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 h-22  flex items-center justify-between  p-4">
+    <div className="fixed top-0 left-0 right-0 z-30 h-22  flex items-center justify-between  p-4">
       <Link href="/">
         <div className="flex gap-2 items-center font-serif text-2xl">
           <Image

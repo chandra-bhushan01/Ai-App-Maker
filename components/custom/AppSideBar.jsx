@@ -25,7 +25,7 @@ const AppSideBar = () => {
   ;
 
   return (
-    <Sidebar className="h-full">
+    <Sidebar className="h-full z-50">
       <SidebarHeader className="p-1">
         <div className="flex items-center gap-3 mt-5">
           <Image src="/ThunderLogo.png" alt="logo" width={40} height={40} />
@@ -33,9 +33,7 @@ const AppSideBar = () => {
             <h2 className="text-lg font-medium ">
               Hey there,
               <br />
-              <span>
-                 lets get started!
-              </span>
+              <span>lets get started!</span>
             </h2>
           </div>
         </div>
