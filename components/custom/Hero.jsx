@@ -32,15 +32,13 @@ const Hero = () => {
     };
 
     setMessages(msg);
-    console.log(userDetail);
-    console.log("It runned")
+    
     
     const workspaceId = await CreateWorkspace({
       user: userDetail._id,
       messages: [msg],
     });
 
-    console.log(workspaceId);
     router.push("/workspace/" + workspaceId);
   };
 
