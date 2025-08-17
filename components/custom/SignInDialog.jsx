@@ -51,9 +51,6 @@ const SignInDialog = ({ openDialog, closeDialog }) => {
     onError: (errorResponse) => console.log(errorResponse),
   });
 
-  useEffect(() => {
-    console.log("Updated userDetail:", userDetail);
-  }, [userDetail]);
 
   return (
     <Dialog open={openDialog} onOpenChange={closeDialog}>
